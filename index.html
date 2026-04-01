@@ -3,17 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Antoine Demdoum — Création de Sites Web sur-mesure | Freelance</title>
-  <meta name="description" content="Antoine Demdoum, développeur web freelance. Je crée des sites vitrines, e-commerce et landing pages modernes pour PME, artisans et indépendants. Devis gratuit sous 24h." />
-  <meta name="keywords" content="création site web, développeur web freelance, site vitrine, e-commerce, SEO, webdesign" />
+
+  <!-- ══ SEO TITLE — keyword "Antoine Demdoum" en premier ══ -->
+  <title>Antoine Demdoum — Développeur Web Freelance | Création de Sites sur-mesure</title>
+
+  <!-- ══ META DESCRIPTION ══ -->
+  <meta name="description" content="Antoine Demdoum, développeur web freelance basé en France. Portfolio de sites vitrines, e-commerce et applications web pour PME, artisans et indépendants. Devis gratuit sous 24h." />
+  <meta name="keywords" content="Antoine Demdoum, développeur web freelance, portfolio, création site web, site vitrine, e-commerce, frontend, backend, React, SEO" />
+  <meta name="author" content="Antoine Demdoum" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://portfolio-antoine-demdoum.vercel.app/" />
+
+  <!-- ══ OPEN GRAPH ══ -->
   <meta property="og:title" content="Antoine Demdoum — Développeur Web Freelance" />
-  <meta property="og:description" content="Sites web sur-mesure pour PME et artisans. Devis gratuit sous 24h." />
+  <meta property="og:description" content="Portfolio d'Antoine Demdoum — Sites sur-mesure pour PME et artisans. Devis gratuit sous 24h." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio-antoine-demdoum.vercel.app/" />
+  <meta property="og:image" content="https://portfolio-antoine-demdoum.vercel.app/portfolio-preview.jpg" />
+  <meta property="og:locale" content="fr_FR" />
+
+  <!-- ══ TWITTER CARD ══ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Antoine Demdoum — Développeur Web Freelance" />
+  <meta name="twitter:description" content="Sites web sur-mesure pour PME et artisans. Devis gratuit sous 24h." />
+  <meta name="twitter:image" content="https://portfolio-antoine-demdoum.vercel.app/portfolio-preview.jpg" />
+
+  <!-- ══ JSON-LD PERSON SCHEMA (structured data) ══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Antoine Demdoum",
+    "jobTitle": "Développeur Web Freelance",
+    "description": "Antoine Demdoum est un développeur web freelance spécialisé dans la création de sites vitrines, e-commerce et applications web pour PME, artisans et indépendants.",
+    "url": "https://portfolio-antoine-demdoum.vercel.app",
+    "email": "antoine.demdoum0@gmail.com",
+    "knowsAbout": ["HTML", "CSS", "JavaScript", "React", "Python", "SEO", "UI/UX Design", "WordPress", "Webflow", "Figma"],
+    "sameAs": [
+      "https://www.linkedin.com/in/antoine-demdoum-3b12aa400/",
+    "offers": {
+      "@type": "Offer",
+      "name": "Création de sites web sur-mesure",
+      "description": "Sites vitrines, e-commerce, landing pages — livrés en 2-3 semaines"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ══ Utilitaire accessibilité / SEO — texte visible par Google, invisible visuellement ══ */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
     :root {
       --bg: #f5f3f3; --bg-dark: #0B1D35;
@@ -256,10 +299,6 @@
       .hero-actions { flex-direction: column; align-items: center; }
     }
   </style>
-  <script>
-    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 <body>
 
@@ -267,35 +306,44 @@
   <div id="progress-bar"></div>
 
   <!-- ── NAVBAR ── -->
-  <nav id="navbar">
-    <span class="nav-logo" onclick="navigate('home')">Antoine<span>.</span></span>
-    <ul class="nav-links" id="nav-links">
-      <li><a onclick="navHome('about')">À propos</a></li>
-      <li><a onclick="navHome('services')">Services</a></li>
-      <li><a id="nav-projets" onclick="navigate('projets')">Projets</a></li>
-      <li><a onclick="navHome('testimonials')">Avis</a></li>
-      <li><a id="nav-contact" class="nav-cta" onclick="navigate('contact')">Me contacter</a></li>
-    </ul>
-    <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
-  </nav>
+  <header>
+    <nav id="navbar" aria-label="Navigation principale">
+      <span class="nav-logo" onclick="navigate('home')" aria-label="Antoine Demdoum — Accueil">Antoine<span>.</span></span>
+      <ul class="nav-links" id="nav-links">
+        <li><a onclick="navHome('about')" aria-label="À propos d'Antoine Demdoum">À propos</a></li>
+        <li><a onclick="navHome('services')">Services</a></li>
+        <li><a id="nav-projets" onclick="navigate('projets')">Projets</a></li>
+        <li><a onclick="navHome('testimonials')">Avis</a></li>
+        <li><a id="nav-contact" class="nav-cta" onclick="navigate('contact')">Me contacter</a></li>
+      </ul>
+      <div class="nav-toggle" id="nav-toggle" aria-label="Menu mobile" role="button"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
 
   <!-- ════════════════════════════════
        PAGE : ACCUEIL
   ════════════════════════════════ -->
   <div id="page-home" class="page active">
+    <main>
 
     <!-- HERO -->
-    <section id="hero">
-      <div class="hero-deco"></div>
+    <section id="hero" aria-labelledby="hero-heading">
+      <div class="hero-deco" aria-hidden="true"></div>
       <div class="hero-content">
-        <div class="hero-badge"><span class="badge-dot"></span>Disponible pour de nouveaux projets</div>
-        <h1 class="hero-title">Je crée des sites web<br />qui <span class="gradient">attirent</span> vos clients.</h1>
-        <p class="hero-desc">Votre site web doit travailler pour vous 24h/24. Je crée des sites qui attirent vos visiteurs, les convainquent, et les transforment en clients — pour les PME, artisans et indépendants ambitieux.</p>
+        <div class="hero-badge"><span class="badge-dot" aria-hidden="true"></span>Disponible pour de nouveaux projets</div>
+
+        <!-- H1 SEO : "Antoine Demdoum" — visible par Google, invisible visuellement -->
+        <h1 id="hero-heading" class="sr-only">Antoine Demdoum — Développeur Web Freelance & Designer</h1>
+
+        <!-- H2 décoratif — design intact -->
+        <h2 class="hero-title">Je crée des sites web<br />qui <span class="gradient">attirent</span> vos clients.</h2>
+
+        <p class="hero-desc">Votre site web doit travailler pour vous 24h/24. <strong>Antoine Demdoum</strong>, développeur web freelance, crée des sites qui attirent vos visiteurs, les convainquent, et les transforment en clients — pour les PME, artisans et indépendants ambitieux.</p>
         <div class="hero-actions">
           <button class="btn-primary" onclick="navigate('projets')">Voir mes projets</button>
           <button class="btn-outline" onclick="navigate('contact')">Discuter d'un projet</button>
         </div>
-        <div class="hero-stats">
+        <div class="hero-stats" aria-label="Statistiques">
           <div class="stat-item"><span class="stat-num">+10</span><span class="stat-label">Projets livrés</span></div>
           <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Clients satisfaits</span></div>
           <div class="stat-item"><span class="stat-num">2-3 sem.</span><span class="stat-label">Délai moyen</span></div>
@@ -304,66 +352,67 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about">
+    <section id="about" aria-labelledby="about-heading">
       <div class="section-header reveal">
         <p class="section-tag">À propos</p>
-        <h2 class="section-title">Passionné par le web,<br />obsédé par les détails.</h2>
+        <!-- H2 avec "Antoine Demdoum" intégré naturellement -->
+        <h2 id="about-heading" class="section-title">Antoine Demdoum —<br />passionné par le web.</h2>
       </div>
       <div class="about-grid">
         <div class="about-text reveal reveal-delay-1">
-          <p>Vous méritez un site web qui reflète vraiment la qualité de votre travail — pas un template générique qui ressemble à mille autres. Chaque projet est conçu sur-mesure, de la maquette jusqu'à la mise en ligne.</p>
-          <p>Que vous soyez artisan, commerçant, PME ou indépendant, je m'adapte à vos objectifs concrets : plus de visibilité, plus de contacts, plus de ventes. Vous avez un interlocuteur unique du début à la fin.</p>
-          <div class="skills-list">
+          <p>Je suis <strong>Antoine Demdoum</strong>, développeur web freelance spécialisé en <strong>frontend</strong>, design UI/UX et optimisation SEO. Mon portfolio regroupe des projets sur-mesure pour des artisans, PME et indépendants qui veulent une présence en ligne qui leur ressemble.</p>
+          <p>Que vous soyez artisan, commerçant, PME ou indépendant, je m'adapte à vos objectifs concrets : plus de visibilité, plus de contacts, plus de ventes. Vous avez un interlocuteur unique du début à la fin — de la maquette Figma à la mise en production.</p>
+          <div class="skills-list" aria-label="Compétences techniques">
             <span class="skill-tag">HTML / CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">React</span>
             <span class="skill-tag">Figma</span><span class="skill-tag">WordPress</span><span class="skill-tag">Webflow</span>
             <span class="skill-tag">SEO</span><span class="skill-tag">UI/UX Design</span><span class="skill-tag">Performance Web</span><span class="skill-tag">Python</span>
           </div>
         </div>
         <div class="about-cards reveal reveal-delay-2">
-          <div class="about-card"><div class="about-card-icon">🎯</div><h4>Orienté résultats</h4><p>Chaque décision de design vise à augmenter vos conversions et votre visibilité.</p></div>
-          <div class="about-card"><div class="about-card-icon">⚡</div><h4>Rapidité d'exécution</h4><p>Sites optimisés pour la vitesse — Google et vos clients vous remercieront.</p></div>
-          <div class="about-card"><div class="about-card-icon">📱</div><h4>100% Responsive</h4><p>Vos clients naviguent sur mobile. Vos sites s'y adaptent parfaitement.</p></div>
-          <div class="about-card"><div class="about-card-icon">🤝</div><h4>Suivi personnalisé</h4><p>Vous n'êtes pas un numéro. Je m'implique dans votre réussite à long terme.</p></div>
+          <div class="about-card"><div class="about-card-icon" aria-hidden="true">🎯</div><h4>Orienté résultats</h4><p>Chaque décision de design vise à augmenter vos conversions et votre visibilité.</p></div>
+          <div class="about-card"><div class="about-card-icon" aria-hidden="true">⚡</div><h4>Rapidité d'exécution</h4><p>Sites optimisés pour la vitesse — Google et vos clients vous remercieront.</p></div>
+          <div class="about-card"><div class="about-card-icon" aria-hidden="true">📱</div><h4>100% Responsive</h4><p>Vos clients naviguent sur mobile. Vos sites s'y adaptent parfaitement.</p></div>
+          <div class="about-card"><div class="about-card-icon" aria-hidden="true">🤝</div><h4>Suivi personnalisé</h4><p>Vous n'êtes pas un numéro. Je m'implique dans votre réussite à long terme.</p></div>
         </div>
       </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="services">
+    <section id="services" aria-labelledby="services-heading">
       <div class="section-header reveal">
         <p class="section-tag">Services</p>
-        <h2 class="section-title">Ce que je peux faire<br />pour vous.</h2>
+        <h2 id="services-heading" class="section-title">Ce que je peux faire<br />pour vous.</h2>
         <p class="section-desc">Des solutions adaptées à chaque étape de votre projet digital.</p>
       </div>
       <div class="services-grid">
-        <div class="service-card reveal reveal-delay-1"><div class="service-icon">🖥️</div><h3>Création de site web</h3><p>Sites vitrines, portfolios, landing pages sur-mesure. Design moderne, code propre et livraison rapide.</p><div class="service-tags"><span class="service-tag">HTML/CSS</span><span class="service-tag">JavaScript</span><span class="service-tag">React</span></div></div>
-        <div class="service-card reveal reveal-delay-2"><div class="service-icon">🛍️</div><h3>E-commerce</h3><p>Boutiques en ligne performantes, prêtes à vendre. Intégration paiement, gestion produits et commandes.</p><div class="service-tags"><span class="service-tag">Shopify</span><span class="service-tag">WooCommerce</span><span class="service-tag">Stripe</span></div></div>
-        <div class="service-card reveal reveal-delay-3"><div class="service-icon">🎨</div><h3>UI/UX Design</h3><p>Interfaces intuitives et visuellement impactantes. Prototypes Figma et maquettes avant développement.</p><div class="service-tags"><span class="service-tag">Figma</span><span class="service-tag">Prototypage</span><span class="service-tag">Wireframe</span></div></div>
-        <div class="service-card reveal reveal-delay-1"><div class="service-icon">📈</div><h3>SEO & Performance</h3><p>Optimisation pour les moteurs de recherche et la vitesse de chargement. Plus de trafic, plus de clients.</p><div class="service-tags"><span class="service-tag">SEO On-page</span><span class="service-tag">Core Web Vitals</span><span class="service-tag">Analytics</span></div></div>
-        <div class="service-card reveal reveal-delay-2"><div class="service-icon">⚙️</div><h3>Maintenance & Support</h3><p>Mises à jour, corrections, évolutions. Votre site reste performant et sécurisé dans la durée.</p><div class="service-tags"><span class="service-tag">Mises à jour</span><span class="service-tag">Sécurité</span><span class="service-tag">Backup</span></div></div>
-        <div class="service-card reveal reveal-delay-3"><div class="service-icon">🔗</div><h3>Intégrations & API</h3><p>Connexion à vos outils existants — CRM, newsletters, paiement, réservation en ligne et plus encore.</p><div class="service-tags"><span class="service-tag">API REST</span><span class="service-tag">Zapier</span><span class="service-tag">Webhooks</span></div></div>
+        <div class="service-card reveal reveal-delay-1"><div class="service-icon" aria-hidden="true">🖥️</div><h3>Création de site web</h3><p>Sites vitrines, portfolios, landing pages sur-mesure. Design moderne, code propre et livraison rapide.</p><div class="service-tags"><span class="service-tag">HTML/CSS</span><span class="service-tag">JavaScript</span><span class="service-tag">React</span></div></div>
+        <div class="service-card reveal reveal-delay-2"><div class="service-icon" aria-hidden="true">🛍️</div><h3>E-commerce</h3><p>Boutiques en ligne performantes, prêtes à vendre. Intégration paiement, gestion produits et commandes.</p><div class="service-tags"><span class="service-tag">Shopify</span><span class="service-tag">WooCommerce</span><span class="service-tag">Stripe</span></div></div>
+        <div class="service-card reveal reveal-delay-3"><div class="service-icon" aria-hidden="true">🎨</div><h3>UI/UX Design</h3><p>Interfaces intuitives et visuellement impactantes. Prototypes Figma et maquettes avant développement.</p><div class="service-tags"><span class="service-tag">Figma</span><span class="service-tag">Prototypage</span><span class="service-tag">Wireframe</span></div></div>
+        <div class="service-card reveal reveal-delay-1"><div class="service-icon" aria-hidden="true">📈</div><h3>SEO & Performance</h3><p>Optimisation pour les moteurs de recherche et la vitesse de chargement. Plus de trafic, plus de clients.</p><div class="service-tags"><span class="service-tag">SEO On-page</span><span class="service-tag">Core Web Vitals</span><span class="service-tag">Analytics</span></div></div>
+        <div class="service-card reveal reveal-delay-2"><div class="service-icon" aria-hidden="true">⚙️</div><h3>Maintenance & Support</h3><p>Mises à jour, corrections, évolutions. Votre site reste performant et sécurisé dans la durée.</p><div class="service-tags"><span class="service-tag">Mises à jour</span><span class="service-tag">Sécurité</span><span class="service-tag">Backup</span></div></div>
+        <div class="service-card reveal reveal-delay-3"><div class="service-icon" aria-hidden="true">🔗</div><h3>Intégrations & API</h3><p>Connexion à vos outils existants — CRM, newsletters, paiement, réservation en ligne et plus encore.</p><div class="service-tags"><span class="service-tag">API REST</span><span class="service-tag">Zapier</span><span class="service-tag">Webhooks</span></div></div>
       </div>
     </section>
 
     <!-- TESTIMONIALS -->
-    <section id="testimonials">
+    <section id="testimonials" aria-labelledby="testimonials-heading">
       <div class="section-header reveal">
         <p class="section-tag">Témoignages</p>
-        <h2 class="section-title">Ce que disent<br />mes clients.</h2>
+        <h2 id="testimonials-heading" class="section-title">Ce que disent<br />mes clients.</h2>
       </div>
       <div class="testimonials-grid">
-        <div class="testimonial-card reveal reveal-delay-1"><div class="testimonial-quote">"</div><p class="testimonial-text">Antoine a transformé notre présence en ligne. Le site est superbe, rapide, et nos clients nous trouvent enfin sur Google. Je recommande sans hésiter.</p><div class="testimonial-author"><div class="author-avatar">KL</div><div><p class="author-name">Karim L.</p><p class="author-role">Gérant — Barbershop Paris</p></div></div></div>
-        <div class="testimonial-card reveal reveal-delay-2"><div class="testimonial-quote">"</div><p class="testimonial-text">Très pro, à l'écoute et livraison dans les délais. Mon site vitrine est exactement ce que j'imaginais, et mes réservations ont explosé depuis le lancement.</p><div class="testimonial-author"><div class="author-avatar">SM</div><div><p class="author-name">Sarah M.</p><p class="author-role">Gérante — Salon de coiffure Lyon</p></div></div></div>
-        <div class="testimonial-card reveal reveal-delay-3"><div class="testimonial-quote">"</div><p class="testimonial-text">Un vrai partenaire digital. Antoine comprend les enjeux business et ne fait pas juste du joli — il fait du fonctionnel qui rapporte.</p><div class="testimonial-author"><div class="author-avatar">TR</div><div><p class="author-name">Thomas R.</p><p class="author-role">Fondateur — Startup e-commerce</p></div></div></div>
-        <div class="testimonial-card reveal reveal-delay-4"><div class="testimonial-quote">"</div><p class="testimonial-text">Excellent travail sur notre refonte. Design impeccable, code propre, et un suivi réactif après livraison. On retravaille ensemble sans hésitation.</p><div class="testimonial-author"><div class="author-avatar">AB</div><div><p class="author-name">Alexandre B.</p><p class="author-role">Directeur Marketing — PME</p></div></div></div>
+        <div class="testimonial-card reveal reveal-delay-1"><div class="testimonial-quote" aria-hidden="true">"</div><p class="testimonial-text">Antoine a transformé notre présence en ligne. Le site est superbe, rapide, et nos clients nous trouvent enfin sur Google. Je recommande sans hésiter.</p><div class="testimonial-author"><div class="author-avatar" aria-hidden="true">KL</div><div><p class="author-name">Karim L.</p><p class="author-role">Gérant — Barbershop Paris</p></div></div></div>
+        <div class="testimonial-card reveal reveal-delay-2"><div class="testimonial-quote" aria-hidden="true">"</div><p class="testimonial-text">Très pro, à l'écoute et livraison dans les délais. Mon site vitrine est exactement ce que j'imaginais, et mes réservations ont explosé depuis le lancement.</p><div class="testimonial-author"><div class="author-avatar" aria-hidden="true">SM</div><div><p class="author-name">Sarah M.</p><p class="author-role">Gérante — Salon de coiffure Lyon</p></div></div></div>
+        <div class="testimonial-card reveal reveal-delay-3"><div class="testimonial-quote" aria-hidden="true">"</div><p class="testimonial-text">Un vrai partenaire digital. Antoine comprend les enjeux business et ne fait pas juste du joli — il fait du fonctionnel qui rapporte.</p><div class="testimonial-author"><div class="author-avatar" aria-hidden="true">TR</div><div><p class="author-name">Thomas R.</p><p class="author-role">Fondateur — Startup e-commerce</p></div></div></div>
+        <div class="testimonial-card reveal reveal-delay-4"><div class="testimonial-quote" aria-hidden="true">"</div><p class="testimonial-text">Excellent travail sur notre refonte. Design impeccable, code propre, et un suivi réactif après livraison. On retravaille ensemble sans hésitation.</p><div class="testimonial-author"><div class="author-avatar" aria-hidden="true">AB</div><div><p class="author-name">Alexandre B.</p><p class="author-role">Directeur Marketing — PME</p></div></div></div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-band">
+    <section class="cta-band" aria-labelledby="cta-heading">
       <div class="cta-inner reveal">
-        <div class="cta-badge"><span class="badge-dot"></span>Disponible pour de nouveaux projets</div>
-        <h2 class="section-title">Prêt à donner vie à votre <span class="gradient">projet web</span> ?</h2>
+        <div class="cta-badge"><span class="badge-dot" aria-hidden="true"></span>Disponible pour de nouveaux projets</div>
+        <h2 id="cta-heading" class="section-title">Prêt à donner vie à votre <span class="gradient">projet web</span> ?</h2>
         <p class="section-desc">Un devis gratuit, une réponse sous 24h. Pas d'engagement, pas de jargon — juste une conversation honnête sur votre projet et ce que je peux faire pour vous.</p>
         <div class="cta-roles">
           <span class="cta-role">🖥️ Site vitrine</span>
@@ -376,8 +425,9 @@
       </div>
     </section>
 
+    </main>
     <footer>
-      <span class="logo" onclick="navigate('home')">Antoine<span>.</span></span>
+      <span class="logo" onclick="navigate('home')" aria-label="Antoine Demdoum — Retour accueil">Antoine<span>.</span></span>
       <p>© 2026 Antoine Demdoum — Tous droits réservés.</p>
       <p style="font-size:0.78rem;color:var(--text-muted);">Conçu & développé avec ♥</p>
     </footer>
@@ -391,19 +441,23 @@
     <div class="page-hero">
       <p class="section-tag">Projets</p>
       <h1 class="section-title">Quelques réalisations<br />dont je suis fier.</h1>
-      <p class="section-desc">Des projets concrets, livrés pour de vrais clients avec de vrais résultats.</p>
+      <p class="section-desc">Des projets concrets, livrés pour de vrais clients avec de vrais résultats — par Antoine Demdoum, développeur web freelance.</p>
     </div>
 
     <div class="projects-wrap">
       <div class="projects-grid">
 
-        <div class="project-card reveal reveal-delay-1">
+        <article class="project-card reveal reveal-delay-1">
           <div class="project-img-wrap">
-            <img src="barbershop-preview.jpg" alt="Aperçu du site LE BARBIER" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+            <img src="barbershop-preview.jpg"
+                 alt="Site web LE BARBIER — Création par Antoine Demdoum, développeur web freelance"
+                 loading="lazy"
+                 width="800" height="450"
+                 style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
           </div>
           <div class="project-body">
             <p class="project-category">Site vitrine</p>
-            <h3 class="project-title">LE BARBIER — Site premium pour salon</h3>
+            <h2 class="project-title">LE BARBIER — Site premium pour salon</h2>
             <p class="project-desc">Site vitrine haut de gamme pour artisan barbier parisien. Réservation en ligne intégrée, design sombre & élégant, optimisé mobile et SEO local.</p>
             <div class="project-footer">
               <div class="project-techs">
@@ -411,33 +465,38 @@
                 <span class="project-tech">JavaScript</span>
                 <span class="project-tech">Responsive</span>
               </div>
+              <a href="barbershop.html" class="project-link" aria-label="Voir le projet LE BARBIER">Voir le site →</a>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="project-card reveal reveal-delay-2">
+        <article class="project-card reveal reveal-delay-2">
           <div class="project-img-wrap">
-            <img src="concessionnaire-preview.jpg" alt="Aperçu du site Concessionnaire" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+            <img src="concessionnaire-preview.jpg"
+                 alt="Site web concessionnaire automobile — Identité digitale et SEO par Antoine Demdoum"
+                 loading="lazy"
+                 width="800" height="450"
+                 style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
           </div>
           <div class="project-body">
             <p class="project-category">Site vitrine</p>
-            <h3 class="project-title">Concessionnaire automobile — Identité digitale complète</h3>
+            <h2 class="project-title">Concessionnaire automobile — Identité digitale complète</h2>
             <p class="project-desc">Refonte complète du site d'un concessionnaire local + stratégie SEO. Meilleur positionnement Google sur les recherches locales dès le premier mois.</p>
             <div class="project-footer">
               <div class="project-techs"><span class="project-tech">HTML/CSS</span><span class="project-tech">SEO</span></div>
+              <a href="concessionnaire.html" class="project-link" aria-label="Voir le projet concessionnaire automobile">Voir le site →</a>
             </div>
           </div>
-        </div>
-
+        </article>
 
       </div>
     </div>
 
-    <section class="cta-band">
+    <section class="cta-band" aria-labelledby="cta-projets-heading">
       <div class="cta-inner reveal">
-        <div class="cta-badge"><span class="badge-dot"></span>Votre projet sera le prochain</div>
-        <h2 class="section-title">Vous avez un projet <span class="gradient">en tête</span> ?</h2>
-        <p class="section-desc">Discutons-en et voyons comment je peux vous aider à le concrétiser.</p>
+        <div class="cta-badge"><span class="badge-dot" aria-hidden="true"></span>Votre projet sera le prochain</div>
+        <h2 id="cta-projets-heading" class="section-title">Vous avez un projet <span class="gradient">en tête</span> ?</h2>
+        <p class="section-desc">Discutons-en et voyons comment Antoine Demdoum peut vous aider à le concrétiser.</p>
         <br /><br />
         <button class="btn-primary" onclick="navigate('contact')">Démarrer un projet →</button>
       </div>
@@ -457,7 +516,7 @@
     <div class="page-hero">
       <p class="section-tag">Contact</p>
       <h1 class="section-title">Parlons de votre<br />prochain projet.</h1>
-      <p class="section-desc">Je réponds généralement sous 24/48H. Décrivez votre projet ci-dessous.</p>
+      <p class="section-desc">Antoine Demdoum répond généralement sous 24/48H. Décrivez votre projet ci-dessous.</p>
     </div>
 
     <div class="contact-wrap">
@@ -465,14 +524,17 @@
         <div class="contact-info reveal reveal-delay-1">
           <h3>Travaillons ensemble</h3>
           <p>Décrivez votre projet dans le formulaire — je vous réponds personnellement sous 24/48H avec une première idée de solution et un devis indicatif.</p>
-          <a href="mailto:antoine.demdoum0@gmail.com" class="contact-email">✉️ &nbsp;antoine.demdoum0@gmail.com</a>
+          <address style="font-style:normal;">
+            <a href="mailto:antoine.demdoum0@gmail.com" class="contact-email">✉️ &nbsp;antoine.demdoum0@gmail.com</a>
+          </address>
           <div class="social-grid" style="margin-top:16px;">
+            <a href="https://www.linkedin.com/in/antoine-demdoum-3b12aa400/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn d'Antoine Demdoum"><span class="social-icon">💼</span> LinkedIn</a>
           </div>
         </div>
-        <form class="contact-form reveal reveal-delay-2" onsubmit="handleSubmit(event)">
+        <form class="contact-form reveal reveal-delay-2" onsubmit="handleSubmit(event)" aria-label="Formulaire de contact Antoine Demdoum">
           <div class="form-row">
-            <div class="form-group"><label for="name">Nom complet</label><input type="text" id="name" name="name" placeholder="Jean Dupont" required /></div>
-            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="jean@email.com" required /></div>
+            <div class="form-group"><label for="name">Nom complet</label><input type="text" id="name" name="name" placeholder="Jean Dupont" required autocomplete="name" /></div>
+            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="jean@email.com" required autocomplete="email" /></div>
           </div>
           <div class="form-group">
             <label for="service">Type de projet</label>
@@ -512,65 +574,45 @@
       if (!next || current === next || transitioning) return;
       transitioning = true;
 
-      // 1 — Start progress bar
       bar.style.width = '0%';
       bar.classList.add('running');
       requestAnimationFrame(() => { bar.style.width = '45%'; });
-
-      // 2 — Fade overlay IN
       overlay.classList.add('visible');
 
       setTimeout(() => {
-        // 3 — Switch pages (hidden behind overlay)
         current.classList.remove('active', 'page-enter');
         next.classList.add('active');
         window.scrollTo({ top: 0 });
-
-        // Reset reveals
         next.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
-
-        // Update nav active state
         document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('nav-active'));
         if (page === 'projets') document.getElementById('nav-projets').classList.add('nav-active');
         if (page === 'contact') document.getElementById('nav-contact').classList.add('nav-active');
-
-        // Update hash & close mobile nav
         history.pushState(null, '', page === 'home' ? location.pathname : '#' + page);
         document.getElementById('nav-links').classList.remove('open');
-
-        // 4 — Complete progress bar then fade overlay OUT
         bar.style.width = '100%';
         setTimeout(() => {
           overlay.classList.remove('visible');
-
-          // 5 — Slide-up entrance of new page content
           next.classList.add('page-enter');
-
-          // 6 — Init scroll reveals & cleanup
           setTimeout(() => {
             initReveal();
             bar.classList.remove('running');
             bar.style.width = '0%';
             transitioning = false;
-            // Scroll vers une section si demandé
             if (scrollTarget) goTo(scrollTarget);
           }, 120);
         }, 180);
       }, 300);
     }
 
-    // ── NAV HOME + SCROLL ──
     function navHome(sectionId) {
       const alreadyHome = document.getElementById('page-home').classList.contains('active');
       if (alreadyHome) {
-        // Barre de progression + highlight de section, puis scroll
         bar.style.width = '0%';
         bar.classList.add('running');
         requestAnimationFrame(() => { bar.style.width = '60%'; });
         setTimeout(() => {
           bar.style.width = '100%';
           goTo(sectionId);
-          // Flash sur la section cible
           const target = document.getElementById(sectionId);
           if (target) {
             target.classList.add('section-flash');
@@ -579,7 +621,6 @@
           setTimeout(() => { bar.classList.remove('running'); bar.style.width = '0%'; }, 400);
         }, 300);
       } else {
-        // Sur une autre page — transition complète puis scroll
         navigate('home', sectionId);
       }
     }
@@ -591,16 +632,13 @@
       }, 80);
     }
 
-    // ── NAVBAR SCROLL ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
 
-    // ── MOBILE TOGGLE ──
     document.getElementById('nav-toggle').addEventListener('click', () => {
       document.getElementById('nav-links').classList.toggle('open');
     });
 
-    // ── REVEAL ON SCROLL ──
     function initReveal() {
       const reveals = document.querySelectorAll('.reveal:not(.visible)');
       const observer = new IntersectionObserver(entries => {
@@ -612,21 +650,17 @@
     }
     initReveal();
 
-    // ── FORM SUBMIT ──
     async function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
       const btn  = form.querySelector('.form-submit');
-
       btn.textContent = 'Envoi en cours...';
       btn.disabled = true;
-
       const res = await fetch('https://formspree.io/f/meepzzkj', {
         method: 'POST',
         body: new FormData(form),
         headers: { 'Accept': 'application/json' }
       });
-
       if (res.ok) {
         btn.textContent = '✓ Message envoyé !';
         btn.style.background = '#22c55e';
@@ -639,10 +673,8 @@
       }
     }
 
-    // ── HASH ROUTING on load ──
     const hash = window.location.hash.replace('#', '');
     if (hash === 'projets' || hash === 'contact') navigate(hash);
-
   </script>
 </body>
 </html>
