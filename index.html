@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antoine Demdoum — Création de Sites Web sur-mesure | Freelance</title>
+  <meta name="description" content="Antoine Demdoum, développeur web freelance. Je crée des sites vitrines, e-commerce et landing pages modernes pour PME, artisans et indépendants. Devis gratuit sous 24h." />
+  <meta name="keywords" content="création site web, développeur web freelance, site vitrine, e-commerce, SEO, webdesign" />
+  <meta property="og:title" content="Antoine Demdoum — Développeur Web Freelance" />
+  <meta property="og:description" content="Sites web sur-mesure pour PME et artisans. Devis gratuit sous 24h." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f3f3; --bg-dark: #0B1D35;
+      --text: #0D1B2A; --text-muted: #2f353b;
+      --border: #DDE3EC; --tag-bg: #EDF0F5;
+      --accent: #1A5276; --accent-light: #5B9BD5;
+      --white: #FFFFFF; --card-bg: #FFFFFF;
+      --radius-sm: 10px; --radius-md: 16px; --radius-lg: 20px; --radius-pill: 100px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,0.10);
+      --transition: 0.25s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+    /* ── PAGES ROUTING ── */
+    .page { display: none; }
+    .page.active { display: block; }
+    .page.page-enter { animation: pageIn 0.5s cubic-bezier(0.4,0,0.2,1) both; }
+    @keyframes pageIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── TRANSITION OVERLAY ── */
+    #page-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: var(--bg);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.28s cubic-bezier(0.4,0,0.2,1);
+    }
+    #page-overlay.visible { opacity: 1; pointer-events: all; }
+
+    /* ── TOP PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2.5px; z-index: 600;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      width: 0%; opacity: 0;
+      transition: width 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+      border-radius: 0 2px 2px 0;
+    }
+    #progress-bar.running { opacity: 1; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 5%; display: flex; align-items: center; justify-content: space-between;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled { background: rgba(245,247,250,0.90); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--border); }
+    .nav-logo { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.02em; cursor: pointer; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color var(--transition); cursor: pointer; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.nav-active { color: var(--text); font-weight: 600; }
+    .nav-cta {
+      background: var(--text); color: var(--white) !important;
+      padding: 10px 22px; border-radius: var(--radius-pill);
+      font-weight: 600 !important; font-size: 0.85rem !important;
+      transition: background var(--transition), transform var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--accent) !important; transform: translateY(-1px); }
+    .nav-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+
+    /* ── SHARED ── */
+    section { padding: 100px 5%; }
+    .section-tag { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .section-title { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+    .section-desc { font-size: 1rem; color: var(--text-muted); max-width: 500px; line-height: 1.75; }
+    .section-header { margin-bottom: 60px; }
+    .btn-primary { background: var(--text); color: var(--white); padding: 14px 28px; border-radius: var(--radius-pill); font-size: 0.9rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-family: 'Sora', sans-serif; display: inline-block; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,82,118,0.3); }
+    .btn-outline { border: 1.5px solid var(--border); color: var(--text); padding: 13px 28px; border-radius: var(--radius-pill); font-size: 0.9rem; font-weight: 500; text-decoration: none; cursor: pointer; font-family: 'Sora', sans-serif; display: inline-block; background: none; transition: border-color var(--transition), color var(--transition), transform var(--transition); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 120px 5% 80px; position: relative; overflow: hidden; text-align: center;
+    }
+    .hero-content { max-width: 800px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-pill);
+      padding: 7px 16px; font-size: 0.82rem; font-weight: 500; color: var(--text-muted);
+      margin-bottom: 28px; animation: fadeUp 0.6s ease both;
+    }
+    .badge-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.2)} }
+    .hero-title { font-family: 'Fraunces', serif; font-size: clamp(2.6rem, 6vw, 5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; animation: fadeUp 0.6s 0.15s ease both; }
+    .hero-title .gradient { background: linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-desc { font-size: 1.05rem; color: var(--text-muted); max-width: 540px; margin: 0 auto 36px; line-height: 1.75; animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.6s 0.45s ease both; }
+    .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--border); animation: fadeUp 0.6s 0.6s ease both; }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); }
+    .hero-deco { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(91,155,213,0.1) 0%, transparent 70%); pointer-events: none; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .about-text p { font-size: 0.97rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .skill-tag { background: var(--tag-bg); border: 1px solid var(--border); padding: 7px 16px; border-radius: var(--radius-pill); font-size: 0.82rem; font-weight: 500; color: var(--text); cursor: default; transition: background var(--transition), color var(--transition), border-color var(--transition); }
+    .skill-tag:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .about-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 22px; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .about-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .about-card-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .about-card h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 6px; }
+    .about-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 28px; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); opacity: 0; transition: opacity var(--transition); }
+    .service-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon { font-size: 2rem; margin-bottom: 18px; }
+    .service-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+    .service-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .service-tag { background: var(--tag-bg); padding: 4px 12px; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--white); }
+    .testimonials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .testimonial-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .testimonial-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .testimonial-quote { font-size: 2rem; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px; }
+    .testimonial-text { font-size: 0.95rem; color: var(--text); line-height: 1.75; font-style: italic; margin-bottom: 24px; }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-light)); display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; color: var(--white); flex-shrink: 0; }
+    .author-name { font-size: 0.9rem; font-weight: 600; }
+    .author-role { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── CTA DARK BAND ── */
+    .cta-band { background: var(--bg-dark); color: var(--white); text-align: center; position: relative; overflow: hidden; }
+    .cta-band::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(91,155,213,0.12) 0%, transparent 70%); pointer-events: none; }
+    .cta-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .cta-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-pill); padding: 7px 16px; font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
+    .cta-band .section-title { color: var(--white); margin-bottom: 16px; }
+    .cta-band .section-title .gradient { background: linear-gradient(135deg, var(--accent-light), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .cta-band .section-desc { color: rgba(255,255,255,0.5); max-width: 100%; margin: 0 auto 36px; }
+    .cta-roles { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 40px; }
+    .cta-role { border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-pill); padding: 9px 20px; font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.7); transition: border-color var(--transition), color var(--transition); }
+    .cta-role:hover { border-color: var(--accent-light); color: var(--white); }
+    .cta-band .btn-primary { background: var(--accent-light); font-size: 1rem; padding: 16px 36px; }
+    .cta-band .btn-primary:hover { background: var(--white); color: var(--text); }
+
+    /* ── PAGE HEADER (projets / contact) ── */
+    .page-hero { padding: 140px 5% 60px; background: var(--white); border-bottom: 1px solid var(--border); }
+    .page-hero .section-tag { font-size: 0.78rem; }
+    .page-hero .section-title { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 12px; }
+    .page-hero .section-desc { font-size: 1rem; }
+
+    /* ── PROJECTS PAGE ── */
+    #page-projets .projects-wrap { padding: 72px 5% 100px; }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; }
+    .project-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .project-img-wrap { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #e8eff8, #d4e4f5); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .project-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-img-placeholder { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--accent); opacity: 0.35; }
+    .project-img-placeholder svg { width: 40px; height: 40px; }
+    .project-img-placeholder span { font-size: 0.8rem; font-weight: 500; }
+    .project-body { padding: 24px; }
+    .project-category { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .project-title { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .project-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
+    .project-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .project-techs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .project-tech { background: var(--tag-bg); border: 1px solid var(--border); padding: 4px 12px; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
+    .project-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: var(--accent); text-decoration: none; transition: gap var(--transition); }
+    .project-link:hover { gap: 10px; }
+
+    /* ── CONTACT PAGE ── */
+    #page-contact .contact-wrap { padding: 72px 5% 100px; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start; }
+    .contact-info h3 { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; }
+    .contact-info p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 32px; }
+    .contact-email { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; font-weight: 500; color: var(--text); text-decoration: none; padding: 14px 20px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); transition: border-color var(--transition), color var(--transition); margin-bottom: 28px; }
+    .contact-email:hover { border-color: var(--accent); color: var(--accent); }
+    .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .social-link { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); text-decoration: none; color: var(--text); font-size: 0.87rem; font-weight: 500; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .social-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .social-icon { font-size: 1.2rem; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+    .form-group input, .form-group textarea, .form-group select { padding: 13px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'Sora', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--bg); outline: none; transition: border-color var(--transition), box-shadow var(--transition); resize: none; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,82,118,0.1); }
+    .form-group textarea { min-height: 130px; }
+    .form-submit { background: var(--text); color: var(--white); border: none; padding: 15px 32px; border-radius: var(--radius-pill); font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); align-self: flex-start; }
+    .form-submit:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,82,118,0.3); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 32px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    footer .logo { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; color: var(--text); text-decoration: none; cursor: pointer; }
+    footer .logo span { color: var(--accent); }
+    footer p { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes sectionFlash { 0%{box-shadow:inset 0 0 0 0 rgba(91,155,213,0)} 30%{box-shadow:inset 0 0 0 3px rgba(91,155,213,0.35)} 100%{box-shadow:inset 0 0 0 3px rgba(91,155,213,0)} }
+    .section-flash { animation: sectionFlash 0.7s ease forwards; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 720px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); padding: 24px 5%; gap: 20px; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      .hero-stats { flex-direction: column; gap: 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-cards { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr; }
+      section { padding: 72px 5%; }
+      #page-projets .projects-wrap, #page-contact .contact-wrap { padding: 48px 5% 72px; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.2rem; }
+      .hero-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page-overlay"></div>
+  <div id="progress-bar"></div>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <span class="nav-logo" onclick="navigate('home')">Antoine<span>.</span></span>
+    <ul class="nav-links" id="nav-links">
+      <li><a onclick="navHome('about')">À propos</a></li>
+      <li><a onclick="navHome('services')">Services</a></li>
+      <li><a id="nav-projets" onclick="navigate('projets')">Projets</a></li>
+      <li><a onclick="navHome('testimonials')">Avis</a></li>
+      <li><a id="nav-contact" class="nav-cta" onclick="navigate('contact')">Me contacter</a></li>
+    </ul>
+    <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- ════════════════════════════════
+       PAGE : ACCUEIL
+  ════════════════════════════════ -->
+  <div id="page-home" class="page active">
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-deco"></div>
+      <div class="hero-content">
+        <div class="hero-badge"><span class="badge-dot"></span>Disponible pour de nouveaux projets</div>
+        <h1 class="hero-title">Je crée des sites web<br />qui <span class="gradient">attirent</span> vos clients.</h1>
+        <p class="hero-desc">Votre site web doit travailler pour vous 24h/24. Je crée des sites qui attirent vos visiteurs, les convainquent, et les transforment en clients — pour les PME, artisans et indépendants ambitieux.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="navigate('projets')">Voir mes projets</button>
+          <button class="btn-outline" onclick="navigate('contact')">Discuter d'un projet</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item"><span class="stat-num">+10</span><span class="stat-label">Projets livrés</span></div>
+          <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Clients satisfaits</span></div>
+          <div class="stat-item"><span class="stat-num">2-3 sem.</span><span class="stat-label">Délai moyen</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header reveal">
+        <p class="section-tag">À propos</p>
+        <h2 class="section-title">Passionné par le web,<br />obsédé par les détails.</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal reveal-delay-1">
+          <p>Vous méritez un site web qui reflète vraiment la qualité de votre travail — pas un template générique qui ressemble à mille autres. Chaque projet est conçu sur-mesure, de la maquette jusqu'à la mise en ligne.</p>
+          <p>Que vous soyez artisan, commerçant, PME ou indépendant, je m'adapte à vos objectifs concrets : plus de visibilité, plus de contacts, plus de ventes. Vous avez un interlocuteur unique du début à la fin.</p>
+          <div class="skills-list">
+            <span class="skill-tag">HTML / CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">React</span>
+            <span class="skill-tag">Figma</span><span class="skill-tag">WordPress</span><span class="skill-tag">Webflow</span>
+            <span class="skill-tag">SEO</span><span class="skill-tag">UI/UX Design</span><span class="skill-tag">Performance Web</span><span class="skill-tag">Python</span>
+          </div>
+        </div>
+        <div class="about-cards reveal reveal-delay-2">
+          <div class="about-card"><div class="about-card-icon">🎯</div><h4>Orienté résultats</h4><p>Chaque décision de design vise à augmenter vos conversions et votre visibilité.</p></div>
+          <div class="about-card"><div class="about-card-icon">⚡</div><h4>Rapidité d'exécution</h4><p>Sites optimisés pour la vitesse — Google et vos clients vous remercieront.</p></div>
+          <div class="about-card"><div class="about-card-icon">📱</div><h4>100% Responsive</h4><p>Vos clients naviguent sur mobile. Vos sites s'y adaptent parfaitement.</p></div>
+          <div class="about-card"><div class="about-card-icon">🤝</div><h4>Suivi personnalisé</h4><p>Vous n'êtes pas un numéro. Je m'implique dans votre réussite à long terme.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="section-header reveal">
+        <p class="section-tag">Services</p>
+        <h2 class="section-title">Ce que je peux faire<br />pour vous.</h2>
+        <p class="section-desc">Des solutions adaptées à chaque étape de votre projet digital.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal reveal-delay-1"><div class="service-icon">🖥️</div><h3>Création de site web</h3><p>Sites vitrines, portfolios, landing pages sur-mesure. Design moderne, code propre et livraison rapide.</p><div class="service-tags"><span class="service-tag">HTML/CSS</span><span class="service-tag">JavaScript</span><span class="service-tag">React</span></div></div>
+        <div class="service-card reveal reveal-delay-2"><div class="service-icon">🛍️</div><h3>E-commerce</h3><p>Boutiques en ligne performantes, prêtes à vendre. Intégration paiement, gestion produits et commandes.</p><div class="service-tags"><span class="service-tag">Shopify</span><span class="service-tag">WooCommerce</span><span class="service-tag">Stripe</span></div></div>
+        <div class="service-card reveal reveal-delay-3"><div class="service-icon">🎨</div><h3>UI/UX Design</h3><p>Interfaces intuitives et visuellement impactantes. Prototypes Figma et maquettes avant développement.</p><div class="service-tags"><span class="service-tag">Figma</span><span class="service-tag">Prototypage</span><span class="service-tag">Wireframe</span></div></div>
+        <div class="service-card reveal reveal-delay-1"><div class="service-icon">📈</div><h3>SEO & Performance</h3><p>Optimisation pour les moteurs de recherche et la vitesse de chargement. Plus de trafic, plus de clients.</p><div class="service-tags"><span class="service-tag">SEO On-page</span><span class="service-tag">Core Web Vitals</span><span class="service-tag">Analytics</span></div></div>
+        <div class="service-card reveal reveal-delay-2"><div class="service-icon">⚙️</div><h3>Maintenance & Support</h3><p>Mises à jour, corrections, évolutions. Votre site reste performant et sécurisé dans la durée.</p><div class="service-tags"><span class="service-tag">Mises à jour</span><span class="service-tag">Sécurité</span><span class="service-tag">Backup</span></div></div>
+        <div class="service-card reveal reveal-delay-3"><div class="service-icon">🔗</div><h3>Intégrations & API</h3><p>Connexion à vos outils existants — CRM, newsletters, paiement, réservation en ligne et plus encore.</p><div class="service-tags"><span class="service-tag">API REST</span><span class="service-tag">Zapier</span><span class="service-tag">Webhooks</span></div></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <div class="section-header reveal">
+        <p class="section-tag">Témoignages</p>
+        <h2 class="section-title">Ce que disent<br />mes clients.</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal reveal-delay-1"><div class="testimonial-quote">"</div><p class="testimonial-text">Antoine a transformé notre présence en ligne. Le site est superbe, rapide, et nos clients nous trouvent enfin sur Google. Je recommande sans hésiter.</p><div class="testimonial-author"><div class="author-avatar">KL</div><div><p class="author-name">Karim L.</p><p class="author-role">Gérant — Barbershop Paris</p></div></div></div>
+        <div class="testimonial-card reveal reveal-delay-2"><div class="testimonial-quote">"</div><p class="testimonial-text">Très pro, à l'écoute et livraison dans les délais. Mon site vitrine est exactement ce que j'imaginais, et mes réservations ont explosé depuis le lancement.</p><div class="testimonial-author"><div class="author-avatar">SM</div><div><p class="author-name">Sarah M.</p><p class="author-role">Gérante — Salon de coiffure Lyon</p></div></div></div>
+        <div class="testimonial-card reveal reveal-delay-3"><div class="testimonial-quote">"</div><p class="testimonial-text">Un vrai partenaire digital. Antoine comprend les enjeux business et ne fait pas juste du joli — il fait du fonctionnel qui rapporte.</p><div class="testimonial-author"><div class="author-avatar">TR</div><div><p class="author-name">Thomas R.</p><p class="author-role">Fondateur — Startup e-commerce</p></div></div></div>
+        <div class="testimonial-card reveal reveal-delay-4"><div class="testimonial-quote">"</div><p class="testimonial-text">Excellent travail sur notre refonte. Design impeccable, code propre, et un suivi réactif après livraison. On retravaille ensemble sans hésitation.</p><div class="testimonial-author"><div class="author-avatar">AB</div><div><p class="author-name">Alexandre B.</p><p class="author-role">Directeur Marketing — PME</p></div></div></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <div class="cta-inner reveal">
+        <div class="cta-badge"><span class="badge-dot"></span>Disponible pour de nouveaux projets</div>
+        <h2 class="section-title">Prêt à donner vie à votre <span class="gradient">projet web</span> ?</h2>
+        <p class="section-desc">Un devis gratuit, une réponse sous 24h. Pas d'engagement, pas de jargon — juste une conversation honnête sur votre projet et ce que je peux faire pour vous.</p>
+        <div class="cta-roles">
+          <span class="cta-role">🖥️ Site vitrine</span>
+          <span class="cta-role">🛍️ E-commerce</span>
+          <span class="cta-role">🎨 Redesign</span>
+          <span class="cta-role">📈 SEO</span>
+          <span class="cta-role">⚙️ Application web</span>
+        </div>
+        <button class="btn-primary" onclick="navigate('contact')">Démarrer un projet →</button>
+      </div>
+    </section>
+
+    <footer>
+      <span class="logo" onclick="navigate('home')">Antoine<span>.</span></span>
+      <p>© 2026 Antoine Demdoum — Tous droits réservés.</p>
+      <p style="font-size:0.78rem;color:var(--text-muted);">Conçu & développé avec ♥</p>
+    </footer>
+  </div>
+
+  <!-- ════════════════════════════════
+       PAGE : PROJETS
+  ════════════════════════════════ -->
+  <div id="page-projets" class="page">
+
+    <div class="page-hero">
+      <p class="section-tag">Projets</p>
+      <h1 class="section-title">Quelques réalisations<br />dont je suis fier.</h1>
+      <p class="section-desc">Des projets concrets, livrés pour de vrais clients avec de vrais résultats.</p>
+    </div>
+
+    <div class="projects-wrap">
+      <div class="projects-grid">
+
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-img-wrap">
+            <img src="barbershop-preview.jpg" alt="Aperçu du site LE BARBIER" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+          </div>
+          <div class="project-body">
+            <p class="project-category">Site vitrine</p>
+            <h3 class="project-title">LE BARBIER — Site premium pour salon</h3>
+            <p class="project-desc">Site vitrine haut de gamme pour artisan barbier parisien. Réservation en ligne intégrée, design sombre & élégant, optimisé mobile et SEO local.</p>
+            <div class="project-footer">
+              <div class="project-techs">
+                <span class="project-tech">HTML/CSS</span>
+                <span class="project-tech">JavaScript</span>
+                <span class="project-tech">Responsive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-img-wrap">
+            <img src="concessionnaire-preview.jpg" alt="Aperçu du site Concessionnaire" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+          </div>
+          <div class="project-body">
+            <p class="project-category">Site vitrine</p>
+            <h3 class="project-title">Concessionnaire automobile — Identité digitale complète</h3>
+            <p class="project-desc">Refonte complète du site d'un concessionnaire local + stratégie SEO. Meilleur positionnement Google sur les recherches locales dès le premier mois.</p>
+            <div class="project-footer">
+              <div class="project-techs"><span class="project-tech">HTML/CSS</span><span class="project-tech">SEO</span></div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <section class="cta-band">
+      <div class="cta-inner reveal">
+        <div class="cta-badge"><span class="badge-dot"></span>Votre projet sera le prochain</div>
+        <h2 class="section-title">Vous avez un projet <span class="gradient">en tête</span> ?</h2>
+        <p class="section-desc">Discutons-en et voyons comment je peux vous aider à le concrétiser.</p>
+        <br /><br />
+        <button class="btn-primary" onclick="navigate('contact')">Démarrer un projet →</button>
+      </div>
+    </section>
+    <footer>
+      <span class="logo" onclick="navigate('home')">Antoine<span>.</span></span>
+      <p>© 2026 Antoine Demdoum — Tous droits réservés.</p>
+      <p style="font-size:0.78rem;color:var(--text-muted);">Conçu & développé avec ♥</p>
+    </footer>
+  </div>
+
+  <!-- ════════════════════════════════
+       PAGE : CONTACT
+  ════════════════════════════════ -->
+  <div id="page-contact" class="page">
+
+    <div class="page-hero">
+      <p class="section-tag">Contact</p>
+      <h1 class="section-title">Parlons de votre<br />prochain projet.</h1>
+      <p class="section-desc">Je réponds généralement sous 24/48H. Décrivez votre projet ci-dessous.</p>
+    </div>
+
+    <div class="contact-wrap">
+      <div class="contact-grid">
+        <div class="contact-info reveal reveal-delay-1">
+          <h3>Travaillons ensemble</h3>
+          <p>Décrivez votre projet dans le formulaire — je vous réponds personnellement sous 24/48H avec une première idée de solution et un devis indicatif.</p>
+          <a href="mailto:antoine.demdoum0@gmail.com" class="contact-email">✉️ &nbsp;antoine.demdoum0@gmail.com</a>
+          <div class="social-grid" style="margin-top:16px;">
+          </div>
+        </div>
+        <form class="contact-form reveal reveal-delay-2" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group"><label for="name">Nom complet</label><input type="text" id="name" name="name" placeholder="Jean Dupont" required /></div>
+            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="jean@email.com" required /></div>
+          </div>
+          <div class="form-group">
+            <label for="service">Type de projet</label>
+            <select id="service" name="service">
+              <option value="">Sélectionnez un service</option>
+              <option>Création de site vitrine</option>
+              <option>E-commerce</option>
+              <option>Refonte de site</option>
+              <option>UI/UX Design</option>
+              <option>SEO & Performance</option>
+              <option>Application web</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-group"><label for="message">Décrivez votre projet</label><textarea id="message" name="message" placeholder="Parlez-moi de votre projet, vos objectifs, votre budget approximatif..." required></textarea></div>
+          <button type="submit" class="form-submit">Envoyer le message →</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <span class="logo" onclick="navigate('home')">Antoine<span>.</span></span>
+      <p>© 2026 Antoine Demdoum — Tous droits réservés.</p>
+      <p style="font-size:0.78rem;color:var(--text-muted);">Conçu & développé avec ♥</p>
+    </footer>
+  </div>
+
+  <script>
+    // ── NAVIGATION ──
+    const overlay  = document.getElementById('page-overlay');
+    const bar      = document.getElementById('progress-bar');
+    let transitioning = false;
+
+    function navigate(page, scrollTarget) {
+      const current = document.querySelector('.page.active');
+      const next    = document.getElementById('page-' + page);
+      if (!next || current === next || transitioning) return;
+      transitioning = true;
+
+      // 1 — Start progress bar
+      bar.style.width = '0%';
+      bar.classList.add('running');
+      requestAnimationFrame(() => { bar.style.width = '45%'; });
+
+      // 2 — Fade overlay IN
+      overlay.classList.add('visible');
+
+      setTimeout(() => {
+        // 3 — Switch pages (hidden behind overlay)
+        current.classList.remove('active', 'page-enter');
+        next.classList.add('active');
+        window.scrollTo({ top: 0 });
+
+        // Reset reveals
+        next.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
+
+        // Update nav active state
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('nav-active'));
+        if (page === 'projets') document.getElementById('nav-projets').classList.add('nav-active');
+        if (page === 'contact') document.getElementById('nav-contact').classList.add('nav-active');
+
+        // Update hash & close mobile nav
+        history.pushState(null, '', page === 'home' ? location.pathname : '#' + page);
+        document.getElementById('nav-links').classList.remove('open');
+
+        // 4 — Complete progress bar then fade overlay OUT
+        bar.style.width = '100%';
+        setTimeout(() => {
+          overlay.classList.remove('visible');
+
+          // 5 — Slide-up entrance of new page content
+          next.classList.add('page-enter');
+
+          // 6 — Init scroll reveals & cleanup
+          setTimeout(() => {
+            initReveal();
+            bar.classList.remove('running');
+            bar.style.width = '0%';
+            transitioning = false;
+            // Scroll vers une section si demandé
+            if (scrollTarget) goTo(scrollTarget);
+          }, 120);
+        }, 180);
+      }, 300);
+    }
+
+    // ── NAV HOME + SCROLL ──
+    function navHome(sectionId) {
+      const alreadyHome = document.getElementById('page-home').classList.contains('active');
+      if (alreadyHome) {
+        // Barre de progression + highlight de section, puis scroll
+        bar.style.width = '0%';
+        bar.classList.add('running');
+        requestAnimationFrame(() => { bar.style.width = '60%'; });
+        setTimeout(() => {
+          bar.style.width = '100%';
+          goTo(sectionId);
+          // Flash sur la section cible
+          const target = document.getElementById(sectionId);
+          if (target) {
+            target.classList.add('section-flash');
+            setTimeout(() => target.classList.remove('section-flash'), 700);
+          }
+          setTimeout(() => { bar.classList.remove('running'); bar.style.width = '0%'; }, 400);
+        }, 300);
+      } else {
+        // Sur une autre page — transition complète puis scroll
+        navigate('home', sectionId);
+      }
+    }
+
+    function goTo(id) {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 80);
+    }
+
+    // ── NAVBAR SCROLL ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+
+    // ── MOBILE TOGGLE ──
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+
+    // ── REVEAL ON SCROLL ──
+    function initReveal() {
+      const reveals = document.querySelectorAll('.reveal:not(.visible)');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(el => observer.observe(el));
+    }
+    initReveal();
+
+    // ── FORM SUBMIT ──
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn  = form.querySelector('.form-submit');
+
+      btn.textContent = 'Envoi en cours...';
+      btn.disabled = true;
+
+      const res = await fetch('https://formspree.io/f/meepzzkj', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        btn.textContent = '✓ Message envoyé !';
+        btn.style.background = '#22c55e';
+        form.reset();
+        setTimeout(() => { btn.textContent = 'Envoyer le message →'; btn.style.background = ''; btn.disabled = false; }, 3000);
+      } else {
+        btn.textContent = '✗ Erreur, réessayez';
+        btn.style.background = '#ef4444';
+        setTimeout(() => { btn.textContent = 'Envoyer le message →'; btn.style.background = ''; btn.disabled = false; }, 3000);
+      }
+    }
+
+    // ── HASH ROUTING on load ──
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'projets' || hash === 'contact') navigate(hash);
+
+  </script>
+</body>
+</html>
