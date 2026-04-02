@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <link rel="icon" href="/favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <!-- ══ SEO TITLE — keyword "Antoine Demdoum" en premier ══ -->
   <title>Antoine Demdoum — Développeur Web Freelance | Création de Sites sur-mesure</title>
 
@@ -12,21 +12,22 @@
   <meta name="keywords" content="Antoine Demdoum, développeur web freelance, portfolio, création site web, site vitrine, e-commerce, frontend, backend, React, SEO" />
   <meta name="author" content="Antoine Demdoum" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://portfolio-antoine-demdoum.vercel.app/" />
+  <link rel="canonical" href="https://antoinedemdoumdev.fr/" />
 
   <!-- ══ OPEN GRAPH ══ -->
   <meta property="og:title" content="Antoine Demdoum — Développeur Web Freelance" />
   <meta property="og:description" content="Portfolio d'Antoine Demdoum — Sites sur-mesure pour PME et artisans. Devis gratuit sous 24h." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://portfolio-antoine-demdoum.vercel.app/" />
-  <meta property="og:image" content="https://portfolio-antoine-demdoum.vercel.app/portfolio-preview.jpg" />
+  <meta property="og:url" content="https://antoinedemdoumdev.fr/" />
+  <meta property="og:image" content="https://antoinedemdoumdev.fr/portfolio-preview.jpg" />
   <meta property="og:locale" content="fr_FR" />
 
   <!-- ══ TWITTER CARD ══ -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Antoine Demdoum — Développeur Web Freelance" />
   <meta name="twitter:description" content="Sites web sur-mesure pour PME et artisans. Devis gratuit sous 24h." />
-  <meta name="twitter:image" content="https://portfolio-antoine-demdoum.vercel.app/portfolio-preview.jpg" />
+  <meta name="twitter:image" content="https://antoinedemdoumdev.fr/portfolio-preview.jpg" />
+  <meta name="theme-color" content="#0B1D35" />
 
   <!-- ══ JSON-LD PERSON SCHEMA (structured data) ══ -->
   <script type="application/ld+json">
@@ -36,15 +37,63 @@
     "name": "Antoine Demdoum",
     "jobTitle": "Développeur Web Freelance",
     "description": "Antoine Demdoum est un développeur web freelance spécialisé dans la création de sites vitrines, e-commerce et applications web pour PME, artisans et indépendants.",
-    "url": "https://portfolio-antoine-demdoum.vercel.app",
+    "url": "https://antoinedemdoumdev.fr",
     "email": "antoine.demdoum0@gmail.com",
     "knowsAbout": ["HTML", "CSS", "JavaScript", "React", "Python", "SEO", "UI/UX Design", "WordPress", "Webflow", "Figma"],
     "sameAs": [
-      "https://www.linkedin.com/in/antoine-demdoum-3b12aa400/",
+      "https://www.linkedin.com/in/antoine-demdoum-3b12aa400/"
+    ],
     "offers": {
       "@type": "Offer",
       "name": "Création de sites web sur-mesure",
       "description": "Sites vitrines, e-commerce, landing pages — livrés en 2-3 semaines"
+    }
+  }
+  </script>
+
+  <!-- ══ JSON-LD PROFESSIONAL SERVICE SCHEMA ══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Antoine Demdoum — Développeur Web Freelance",
+    "url": "https://antoinedemdoumdev.fr",
+    "email": "antoine.demdoum0@gmail.com",
+    "description": "Création de sites vitrines, e-commerce et applications web sur-mesure pour PME, artisans et indépendants.",
+    "areaServed": "FR",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Services de développement web",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Création de site vitrine"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Site e-commerce"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "SEO & Performance Web"
+          }
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "4",
+      "bestRating": "5",
+      "worstRating": "1"
     }
   }
   </script>
@@ -310,11 +359,11 @@
     <nav id="navbar" aria-label="Navigation principale">
       <span class="nav-logo" onclick="navigate('home')" aria-label="Antoine Demdoum — Accueil">Antoine<span>.</span></span>
       <ul class="nav-links" id="nav-links">
-        <li><a onclick="navHome('about')" aria-label="À propos d'Antoine Demdoum">À propos</a></li>
-        <li><a onclick="navHome('services')">Services</a></li>
-        <li><a id="nav-projets" onclick="navigate('projets')">Projets</a></li>
-        <li><a onclick="navHome('testimonials')">Avis</a></li>
-        <li><a id="nav-contact" class="nav-cta" onclick="navigate('contact')">Me contacter</a></li>
+        <li><a href="/#about" onclick="navHome('about')" aria-label="À propos d'Antoine Demdoum">À propos</a></li>
+        <li><a href="/#services" onclick="navHome('services')">Services</a></li>
+        <li><a id="nav-projets" href="/projets.html" onclick="navigate('projets')">Projets</a></li>
+        <li><a href="/#testimonials" onclick="navHome('testimonials')">Avis</a></li>
+        <li><a id="nav-contact" href="/contact.html" class="nav-cta" onclick="navigate('contact')">Me contacter</a></li>
       </ul>
       <div class="nav-toggle" id="nav-toggle" aria-label="Menu mobile" role="button"><span></span><span></span><span></span></div>
     </nav>
@@ -332,13 +381,10 @@
       <div class="hero-content">
         <div class="hero-badge"><span class="badge-dot" aria-hidden="true"></span>Disponible pour de nouveaux projets</div>
 
-        <!-- H1 SEO : "Antoine Demdoum" — visible par Google, invisible visuellement -->
-        <h1 id="hero-heading" class="sr-only">Antoine Demdoum — Développeur Web Freelance & Designer</h1>
+        <!-- H1 SEO + décoratif — visible par Google et visuellement -->
+        <h1 id="hero-heading" class="hero-title">Je crée des sites web<br />qui <span class="gradient">attirent</span> vos clients.</h1>
 
-        <!-- H2 décoratif — design intact -->
-        <h2 class="hero-title">Je crée des sites web<br />qui <span class="gradient">attirent</span> vos clients.</h2>
-
-        <p class="hero-desc">Votre site web doit travailler pour vous 24h/24. <strong>Antoine Demdoum</strong>, développeur web freelance, crée des sites qui attirent vos visiteurs, les convainquent, et les transforment en clients — pour les PME, artisans et indépendants ambitieux.</p>
+        <p class="hero-desc">Votre site web doit travailler pour vous 24h/24. <strong>Antoine Demdoum</strong>, développeur web freelance, crée des sites qui attirent vos visiteurs, les mettent en confiance, et les transforment en clients — pour les PME, artisans et tout types d'indépendants ambitieux.</p>
         <div class="hero-actions">
           <button class="btn-primary" onclick="navigate('projets')">Voir mes projets</button>
           <button class="btn-outline" onclick="navigate('contact')">Discuter d'un projet</button>
