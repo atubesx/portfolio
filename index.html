@@ -361,9 +361,9 @@
       <ul class="nav-links" id="nav-links">
         <li><a href="/#about" onclick="navHome('about')" aria-label="À propos d'Antoine Demdoum">À propos</a></li>
         <li><a href="/#services" onclick="navHome('services')">Services</a></li>
-        <li><a id="nav-projets" href="/projets.html" onclick="navigate('projets')">Projets</a></li>
+        <li><a id="nav-projets" href="#projets" onclick="navigate('projets'); return false;">Projets</a></li>
         <li><a href="/#testimonials" onclick="navHome('testimonials')">Avis</a></li>
-        <li><a id="nav-contact" href="/contact.html" class="nav-cta" onclick="navigate('contact')">Me contacter</a></li>
+        <li><a id="nav-contact" href="#contact" class="nav-cta" onclick="navigate('contact'); return false;">Me contacter</a></li>
       </ul>
       <div class="nav-toggle" id="nav-toggle" aria-label="Menu mobile" role="button"><span></span><span></span><span></span></div>
     </nav>
