@@ -260,30 +260,34 @@
     .cta-band .btn-primary:hover { background: var(--white); color: var(--text); }
 
     /* ── PAGE HEADER (projets / contact) ── */
-    .page-hero { padding: 140px 5% 60px; background: var(--white); border-bottom: 1px solid var(--border); }
+    .page-hero { padding: 140px 5% 60px; background: var(--white); border-bottom: 1px solid var(--border); text-align: center; }
     .page-hero .section-tag { font-size: 0.78rem; }
     .page-hero .section-title { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 12px; }
-    .page-hero .section-desc { font-size: 1rem; }
+    .page-hero .section-desc { font-size: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
 
-    /* ── PROJECTS PAGE ── */
-    #page-projets .projects-wrap { padding: 72px 5% 100px; }
-    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; }
-    .project-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
-    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-    .project-img-wrap { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #e8eff8, #d4e4f5); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .project-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .project-img-placeholder { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--accent); opacity: 0.35; }
+    /* ── PROJECTS PAGE — Editorial Showcase ── */
+    #page-projets .projects-wrap { padding: 0 0 80px; }
+    .projects-grid { display: flex; flex-direction: column; gap: 0; max-width: 1160px; margin: 0 auto; }
+    .project-card { display: grid; grid-template-columns: 55% 45%; min-height: 460px; border-bottom: 1px solid var(--border); overflow: hidden; position: relative; background: var(--white); }
+    .project-card:nth-child(even) { grid-template-columns: 45% 55%; }
+    .project-card:nth-child(even) .project-img-wrap { order: 2; }
+    .project-card:nth-child(even) .project-body { order: 1; }
+    .project-img-wrap { overflow: hidden; background: linear-gradient(135deg, #e8eff8, #d4e4f5); }
+    .project-img-wrap img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+    .project-card:hover .project-img-wrap img { transform: scale(1.02); }
+    .project-img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 10px; color: var(--accent); opacity: 0.35; }
     .project-img-placeholder svg { width: 40px; height: 40px; }
     .project-img-placeholder span { font-size: 0.8rem; font-weight: 500; }
-    .project-body { padding: 24px; }
-    .project-category { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-    .project-title { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 10px; }
-    .project-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
-    .project-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .project-body { padding: 52px 56px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; text-align: left; }
+    .project-num { position: absolute; bottom: -10px; right: 12px; font-family: 'Fraunces', serif; font-size: 10rem; font-weight: 700; color: rgba(26,82,118,0.05); line-height: 1; pointer-events: none; user-select: none; }
+    .project-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .project-category::before { content: ''; display: block; width: 30px; height: 1px; background: var(--accent); flex-shrink: 0; }
+    .project-title { font-family: 'Fraunces', serif; font-size: clamp(1.6rem, 2.6vw, 2.3rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; color: var(--text); margin-bottom: 18px; }
+    .project-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 28px; max-width: 380px; }
+    .project-footer { display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; }
     .project-techs { display: flex; gap: 8px; flex-wrap: wrap; }
-    .project-tech { background: var(--tag-bg); border: 1px solid var(--border); padding: 4px 12px; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
-    .project-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: var(--accent); text-decoration: none; transition: gap var(--transition); }
-    .project-link:hover { gap: 10px; }
+    .project-tech { background: transparent; border: 1px solid var(--border); padding: 5px 14px; border-radius: var(--radius-pill); font-size: 0.73rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; }
+    .project-link { display: none; }
 
     /* ── CONTACT PAGE ── */
     #page-contact .contact-wrap { padding: 72px 5% 100px; }
@@ -328,7 +332,10 @@
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .testimonials-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr !important; min-height: auto; }
+      .project-card .project-img-wrap { min-height: 280px; order: 0 !important; }
+      .project-card .project-body { order: 1 !important; padding: 36px 28px; }
+      .project-num { font-size: 6rem; }
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     }
     @media (max-width: 720px) {
@@ -498,12 +505,12 @@
             <img src="barbershop-preview.jpg"
                  alt="Site web LE BARBIER — Création par Antoine Demdoum, développeur web freelance"
                  loading="lazy"
-                 width="800" height="450"
-                 style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+                 width="800" height="450" />
           </div>
           <div class="project-body">
+            <span class="project-num" aria-hidden="true">01</span>
             <p class="project-category">Site vitrine</p>
-            <h2 class="project-title">LE BARBIER — Site premium pour salon</h2>
+            <h2 class="project-title">LE BARBIER —<br />Site premium pour salon</h2>
             <p class="project-desc">Site vitrine haut de gamme pour artisan barbier parisien. Réservation en ligne intégrée, design sombre & élégant, optimisé mobile et SEO local.</p>
             <div class="project-footer">
               <div class="project-techs">
@@ -511,7 +518,6 @@
                 <span class="project-tech">JavaScript</span>
                 <span class="project-tech">Responsive</span>
               </div>
-              <a href="barbershop.html" class="project-link" aria-label="Voir le projet LE BARBIER">Voir le site →</a>
             </div>
           </div>
         </article>
@@ -521,16 +527,15 @@
             <img src="concessionnaire-preview.jpg"
                  alt="Site web concessionnaire automobile — Identité digitale et SEO par Antoine Demdoum"
                  loading="lazy"
-                 width="800" height="450"
-                 style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+                 width="800" height="450" />
           </div>
           <div class="project-body">
+            <span class="project-num" aria-hidden="true">02</span>
             <p class="project-category">Site vitrine</p>
-            <h2 class="project-title">Concessionnaire automobile — Identité digitale complète</h2>
+            <h2 class="project-title">Concessionnaire —<br />Identité digitale complète</h2>
             <p class="project-desc">Refonte complète du site d'un concessionnaire local + stratégie SEO. Meilleur positionnement Google sur les recherches locales dès le premier mois.</p>
             <div class="project-footer">
-              <div class="project-techs"><span class="project-tech">HTML/CSS</span><span class="project-tech">SEO</span></div>
-              <a href="concessionnaire.html" class="project-link" aria-label="Voir le projet concessionnaire automobile">Voir le site →</a>
+              <div class="project-techs"><span class="project-tech">HTML/CSS</span><span class="project-tech">SEO</span><span class="project-tech">Google Local</span></div>
             </div>
           </div>
         </article>
